@@ -1,0 +1,15 @@
+#Вычислите важности признаков и найдите два признака с наибольшей важностью.
+import numpy as np
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+data = pd.read_csv ( 'titanic.csv', usecols = ['Pclass', 'Sex', 'Age', 'Fare'] )
+# Меняем признак Sex со строкового значения на целое.
+data.Sex.replace(to_replace=dict(female=0, male=1), inplace=True)
+#Выделяем целевую переменную — она записана в столбце Survived.
+data2 = pd.read_csv ( 'titanic.csv', usecols = ['Pclass', 'Fare', 'Age', 'Sex','Survived'] )
+dataSurvived = data2.dropna()
+clf = DecisionTreeClassifier(random_state=241)
+clf.fit(data.dropna(), dataSurvived.Survived)
+importances = clf.feature_importances_
+print("Важность признаков:", importances)
+print("Порядок признаков:", data.columns.values.tolist())
