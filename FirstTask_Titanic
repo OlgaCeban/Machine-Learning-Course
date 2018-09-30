@@ -1,0 +1,23 @@
+#The task with Titanic Dataset
+# Importing the data & looking at the head of the file
+import pandas
+data = pandas.read_csv ( 'titanic.csv', index_col='PassengerId' )
+data.head()
+
+# Какое количество мужчин и женщин ехало на корабле?
+data['Sex'].value_counts()
+
+# Какой части пассажиров удалось выжить? 
+data['Survived'].value_counts()
+
+# Какую долю пассажиры первого класса составляли среди всех пассажиров? 
+data['Pclass'].value_counts()
+
+# Какого возраста были пассажиры? 
+# Посчитайте среднее и медиану возраста пассажиров.
+print(data['Age'].mean())
+print(data['Age'].median())
+
+# Коррелируют ли число братьев/сестер/супругов с числом родителей/детей? 
+# Посчитайте корреляцию Пирсона между признаками SibSp и Parch.
+data.corr(method='pearson', min_periods=1)
